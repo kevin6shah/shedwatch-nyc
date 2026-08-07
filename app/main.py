@@ -24,6 +24,7 @@ async def index() -> FileResponse:
 
 
 @app.get("/healthz")
+@app.get("/api/healthz")
 async def healthz() -> dict[str, str]:
     return {"status": "ok", "service": "shedwatch-nyc"}
 

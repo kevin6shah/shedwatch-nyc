@@ -11,6 +11,10 @@ def test_healthcheck():
     assert response.status_code == 200
     assert response.json()["status"] == "ok"
 
+    external_response = client.get("/api/healthz")
+    assert external_response.status_code == 200
+    assert external_response.json() == response.json()
+
 
 def test_snapshot_contains_expected_cases_and_control():
     response = client.get("/api/snapshot")

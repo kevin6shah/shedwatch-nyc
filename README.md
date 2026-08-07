@@ -97,7 +97,8 @@ python -m app.scanner --mode fixture --refresh-permits
 
 ## API
 
-- `GET /healthz`
+- `GET /healthz` — container-local health check
+- `GET /api/healthz` — externally reachable Cloud Run health check
 - `GET /api/snapshot`
 - `GET /api/cases/{case_id}`
 - `POST /api/cases/{case_id}/decision`
