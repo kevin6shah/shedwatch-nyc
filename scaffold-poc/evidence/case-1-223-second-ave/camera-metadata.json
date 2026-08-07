@@ -1,0 +1,10 @@
+{
+  "id": "02d7db8e-481d-477e-9cdb-a2b6c6ec1ca3",
+  "name": "2 Ave @ E 14 St",
+  "latitude": 40.732373,
+  "longitude": -73.984954,
+  "area": "Manhattan",
+  "isOnline": "true",
+  "imageUrl": "https://webcams.nyctmc.org/api/cameras/02d7db8e-481d-477e-9cdb-a2b6c6ec1ca3/image",
+  "distance_m": 550
+}

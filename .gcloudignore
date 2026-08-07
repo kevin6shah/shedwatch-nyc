@@ -1,0 +1,11 @@
+.git
+.gitignore
+.env
+.venv
+venv
+__pycache__
+.pytest_cache
+evidence/one-mile-halal-census
+evidence/herald-square-sabrett
+evidence/union-square-halal
+scaffold-poc/evidence

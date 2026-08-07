@@ -1,0 +1,265 @@
+{
+  "project_name": "Shedwatch NYC",
+  "generated_at": "2026-08-07T19:01:07.395391-04:00",
+  "observed_at": "2026-08-07T18:32:00-04:00",
+  "center_latitude": 40.734717,
+  "center_longitude": -73.990696,
+  "radius_m": 1609,
+  "model_provider": "gemini-3.6-flash",
+  "snapshot_mode": "gemini-targeted",
+  "metrics": {
+    "cameras_available": 968,
+    "cameras_in_radius": 38,
+    "frames_matched": 38,
+    "sheds_detected": 3,
+    "permit_gaps": 2,
+    "controls": 1
+  },
+  "cases": [
+    {
+      "case_id": "223-second-avenue",
+      "title": "223 Second Avenue",
+      "status": "no_current_permit_found",
+      "frame": {
+        "camera_id": "02d7db8e-481d-477e-9cdb-a2b6c6ec1ca3",
+        "camera_name": "2 Ave @ E 14 St",
+        "latitude": 40.732373,
+        "longitude": -73.984954,
+        "facing": "South",
+        "observed_at": "2026-08-07T18:32:00-04:00",
+        "image_path": "/static/frames/2_Ave_@_E_14_St.jpg",
+        "live_image_url": "https://webcams.nyctmc.org/api/cameras/02d7db8e-481d-477e-9cdb-a2b6c6ec1ca3/image"
+      },
+      "detection": {
+        "shed_visible": true,
+        "box": {
+          "ymin": 280,
+          "xmin": 0,
+          "ymax": 580,
+          "xmax": 310
+        },
+        "confidence": 0.68,
+        "structure_type": "sidewalk_shed",
+        "side_of_image": "left",
+        "visual_reason": "Covered pedestrian walkway structure with vertical supports and overhead deck along the left sidewalk, partially obscured by water droplets on the camera lens.",
+        "provider": "gemini-3.6-flash"
+      },
+      "lot": {
+        "bbl": "1004690030",
+        "bin_ids": [
+          "1006906"
+        ],
+        "address": "223 2 AVENUE",
+        "address_aliases": [
+          "223 SECOND AVENUE",
+          "242 EAST 14 STREET"
+        ],
+        "latitude": 40.732293,
+        "longitude": -73.9854878,
+        "distance_from_camera_m": 45.8,
+        "confidence": 0.82,
+        "method": "camera direction + street side + explicit POC frontage mapping"
+      },
+      "permit_evidence": {
+        "checked_on": "2026-08-07",
+        "finding": "no_current_permit_found",
+        "latest_record": {
+          "permit_id": "140561675",
+          "source": "legacy",
+          "work_type": "Sidewalk Shed",
+          "status": "ISSUED",
+          "issued_date": "2016-10-12",
+          "expiration_date": "2017-10-12"
+        },
+        "current_permit": null,
+        "records_checked": 11,
+        "sources": [
+          "DOB NOW Build Approved Permits",
+          "DOB Permit Issuance"
+        ],
+        "explanation": "No current shed permit found. The newest matching record (140561675) expired 2017-10-12 and is marked ISSUED."
+      },
+      "ecb_context": "No active shed-related ECB violation was found for the matched lot. This makes the camera signal potentially additive to enforcement data.",
+      "reasons": [
+        "Covered pedestrian walkway structure with vertical supports and overhead deck along the left sidewalk, partially obscured by water droplets on the camera lens.",
+        "No current shed permit found. The newest matching record (140561675) expired 2017-10-12 and is marked ISSUED.",
+        "The lot assignment is evidence-backed but still requires a human frontage check."
+      ],
+      "reviewer_questions": [
+        "Does the boxed structure occupy the mapped building frontage?",
+        "Is a current permit number visibly posted on the shed?",
+        "Could an adjoining BIN or very recent filing explain the structure?"
+      ],
+      "decision": "pending",
+      "review_note": null,
+      "reviewed_at": null,
+      "is_control": false
+    },
+    {
+      "case_id": "74-78-eighth-avenue",
+      "title": "74–78 Eighth Avenue",
+      "status": "no_current_permit_found",
+      "frame": {
+        "camera_id": "3dc1adcd-7a47-45c3-a667-9d8fae9fdcd0",
+        "camera_name": "8 Ave @ 14 St",
+        "latitude": 40.7397525513578,
+        "longitude": -74.0025212013102,
+        "facing": "East",
+        "observed_at": "2026-08-07T18:32:00-04:00",
+        "image_path": "/static/frames/8_Ave_@_14_St.jpg",
+        "live_image_url": "https://webcams.nyctmc.org/api/cameras/3dc1adcd-7a47-45c3-a667-9d8fae9fdcd0/image"
+      },
+      "detection": {
+        "shed_visible": true,
+        "box": {
+          "ymin": 75,
+          "xmin": 220,
+          "ymax": 520,
+          "xmax": 1000
+        },
+        "confidence": 0.88,
+        "structure_type": "sidewalk_shed",
+        "side_of_image": "right",
+        "visual_reason": "A prominent sidewalk shed with vertical support posts and overhead deck wraps around the corner building along the right side and background sidewalk.",
+        "provider": "gemini-3.6-flash"
+      },
+      "lot": {
+        "bbl": "1006180005",
+        "bin_ids": [
+          "1080215",
+          "1080216",
+          "1080217"
+        ],
+        "address": "74 8 AVENUE",
+        "address_aliases": [
+          "74–78 8 AVENUE",
+          "254–256 WEST 14 STREET"
+        ],
+        "latitude": 40.7394632,
+        "longitude": -74.0023672,
+        "distance_from_camera_m": 34.7,
+        "confidence": 0.87,
+        "method": "camera direction + street side + explicit POC frontage mapping"
+      },
+      "permit_evidence": {
+        "checked_on": "2026-08-07",
+        "finding": "no_current_permit_found",
+        "latest_record": {
+          "permit_id": "M00187126-I1-SH",
+          "source": "dob_now",
+          "work_type": "Sidewalk Shed",
+          "status": "Signed-off",
+          "issued_date": "2022-04-04",
+          "expiration_date": "2023-04-01"
+        },
+        "current_permit": null,
+        "records_checked": 34,
+        "sources": [
+          "DOB NOW Build Approved Permits",
+          "DOB Permit Issuance"
+        ],
+        "explanation": "No current shed permit found. The newest matching record (M00187126-I1-SH) expired 2023-04-01 and is marked Signed-off."
+      },
+      "ecb_context": "No active shed-related ECB violation was found for the matched lot. Human frontage verification is required before escalation.",
+      "reasons": [
+        "A prominent sidewalk shed with vertical support posts and overhead deck wraps around the corner building along the right side and background sidewalk.",
+        "No current shed permit found. The newest matching record (M00187126-I1-SH) expired 2023-04-01 and is marked Signed-off.",
+        "The lot assignment is evidence-backed but still requires a human frontage check."
+      ],
+      "reviewer_questions": [
+        "Does the boxed structure occupy the mapped building frontage?",
+        "Is a current permit number visibly posted on the shed?",
+        "Could an adjoining BIN or very recent filing explain the structure?"
+      ],
+      "decision": "pending",
+      "review_note": null,
+      "reviewed_at": null,
+      "is_control": false
+    },
+    {
+      "case_id": "80-eighth-avenue-control",
+      "title": "80 Eighth Avenue — permitted control",
+      "status": "valid_permit",
+      "frame": {
+        "camera_id": "3dc1adcd-7a47-45c3-a667-9d8fae9fdcd0",
+        "camera_name": "8 Ave @ 14 St",
+        "latitude": 40.7397525513578,
+        "longitude": -74.0025212013102,
+        "facing": "East",
+        "observed_at": "2026-08-07T18:32:00-04:00",
+        "image_path": "/static/frames/8_Ave_@_14_St.jpg",
+        "live_image_url": "https://webcams.nyctmc.org/api/cameras/3dc1adcd-7a47-45c3-a667-9d8fae9fdcd0/image"
+      },
+      "detection": {
+        "shed_visible": true,
+        "box": {
+          "ymin": 70,
+          "xmin": 0,
+          "ymax": 610,
+          "xmax": 490
+        },
+        "confidence": 0.92,
+        "structure_type": "sidewalk shed",
+        "side_of_image": "left / north side",
+        "visual_reason": "A second sidewalk shed occupies the opposite side of the same intersection, providing a useful permitted control.",
+        "provider": "gemini-3.6-flash (verified fixture)"
+      },
+      "lot": {
+        "bbl": "1007640001",
+        "bin_ids": [
+          "1013711"
+        ],
+        "address": "80 8 AVENUE",
+        "address_aliases": [
+          "80 EIGHTH AVENUE"
+        ],
+        "latitude": 40.7398584,
+        "longitude": -74.0020533,
+        "distance_from_camera_m": 41.1,
+        "confidence": 0.91,
+        "method": "camera direction + street side + explicit POC frontage mapping"
+      },
+      "permit_evidence": {
+        "checked_on": "2026-08-07",
+        "finding": "valid_permit",
+        "latest_record": {
+          "permit_id": "M00950093-I1-SH",
+          "source": "dob_now",
+          "work_type": "Sidewalk Shed",
+          "status": "Permit Issued",
+          "issued_date": "2025-12-31",
+          "expiration_date": "2026-12-31"
+        },
+        "current_permit": {
+          "permit_id": "M00950093-I1-SH",
+          "source": "dob_now",
+          "work_type": "Sidewalk Shed",
+          "status": "Permit Issued",
+          "issued_date": "2025-12-31",
+          "expiration_date": "2026-12-31"
+        },
+        "records_checked": 21,
+        "sources": [
+          "DOB NOW Build Approved Permits",
+          "DOB Permit Issuance"
+        ],
+        "explanation": "Current Sidewalk Shed permit M00950093-I1-SH remains valid through 2026-12-31."
+      },
+      "ecb_context": "Control case: the current DOB NOW permit explains the visible north-side shed.",
+      "reasons": [
+        "A second sidewalk shed occupies the opposite side of the same intersection, providing a useful permitted control.",
+        "Current Sidewalk Shed permit M00950093-I1-SH remains valid through 2026-12-31.",
+        "The lot assignment is evidence-backed but still requires a human frontage check."
+      ],
+      "reviewer_questions": [
+        "Does the boxed structure occupy the mapped building frontage?",
+        "Is a current permit number visibly posted on the shed?",
+        "Could an adjoining BIN or very recent filing explain the structure?"
+      ],
+      "decision": "pending",
+      "review_note": null,
+      "reviewed_at": null,
+      "is_control": true
+    }
+  ]
+}

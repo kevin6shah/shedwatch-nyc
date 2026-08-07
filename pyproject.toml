@@ -1,0 +1,9 @@
+[project]
+name = "shedwatch-nyc"
+version = "0.1.0"
+description = "Human-reviewed NYC sidewalk-shed permit intelligence"
+requires-python = ">=3.11"
+
+[tool.pytest.ini_options]
+pythonpath = ["."]
+testpaths = ["tests"]

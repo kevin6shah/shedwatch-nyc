@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#0a1110" />
+    <title>Shedwatch NYC</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin="" />
+    <link rel="stylesheet" href="/static/styles.css" />
+  </head>
+  <body>
+    <div class="noise"></div>
+    <header class="topbar">
+      <a class="brand" href="/">
+        <span class="brand-mark">SW</span>
+        <span><strong>Shedwatch</strong><small>New York City</small></span>
+      </a>
+      <div class="top-actions">
+        <span class="live-pill"><i></i> Daily snapshot live</span>
+        <span class="model-pill" id="model-pill">Gemini Flash</span>
+      </div>
+    </header>
+
+    <main>
+      <section class="hero">
+        <div>
+          <p class="eyebrow">PUBLIC-REALM INTELLIGENCE</p>
+          <h1>See the shed.<br /><em>Check the permit.</em></h1>
+          <p class="lede">Shedwatch turns daily NYC traffic-camera snapshots into a human-reviewed queue of sidewalk sheds whose permit status deserves a closer look.</p>
+        </div>
+        <div class="snapshot-stamp">
+          <span>LATEST OBSERVATION</span>
+          <strong id="snapshot-time">Loading…</strong>
+          <small>Union Square · 1 mile</small>
+        </div>
+      </section>
+
+      <section class="metrics" id="metrics">
+        <article><span>CAMERAS CHECKED</span><strong>—</strong><small>inside pilot radius</small></article>
+        <article><span>SHEDS DETECTED</span><strong>—</strong><small>Gemini visual matches</small></article>
+        <article class="metric-alert"><span>PERMIT GAPS</span><strong>—</strong><small>need human review</small></article>
+        <article><span>VALID CONTROL</span><strong>—</strong><small>permit confirmed</small></article>
+      </section>
+
+      <section class="workspace">
+        <div class="map-panel">
+          <div class="panel-heading">
+            <div><span class="kicker">01 / CITY VIEW</span><h2>One-mile pilot</h2></div>
+            <div class="legend"><span><i class="dot red"></i>Review</span><span><i class="dot green"></i>Permitted</span><span><i class="dot amber"></i>Unresolved</span></div>
+          </div>
+          <div id="map"></div>
+          <div class="map-note">DOT frames are matched to lots using camera direction, street side, and explicit POC frontage mappings.</div>
+        </div>
+
+        <aside class="queue-panel">
+          <div class="panel-heading">
+            <div><span class="kicker">02 / REVIEW QUEUE</span><h2>Evidence packets</h2></div>
+            <span class="queue-count" id="queue-count">—</span>
+          </div>
+          <div id="case-list" class="case-list"><div class="loading">Loading daily snapshot…</div></div>
+        </aside>
+      </section>
+
+      <section class="method-strip">
+        <span>NYC DOT FRAME</span><b>→</b><span>GEMINI VISION</span><b>→</b><span>PLUTO LOT</span><b>→</b><span>DOB PERMITS</span><b>→</b><span>HUMAN DECISION</span>
+      </section>
+    </main>
+
+    <div class="drawer-backdrop" id="drawer-backdrop"></div>
+    <aside class="drawer" id="drawer" aria-hidden="true">
+      <button class="drawer-close" id="drawer-close" aria-label="Close">×</button>
+      <div id="drawer-content"></div>
+    </aside>
+
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
+    <script src="/static/app.js"></script>
+  </body>
+</html>

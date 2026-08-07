@@ -1,0 +1,10 @@
+{
+  "id": "3dc1adcd-7a47-45c3-a667-9d8fae9fdcd0",
+  "name": "8 Ave @ 14 St",
+  "latitude": 40.7397525513578,
+  "longitude": -74.0025212013102,
+  "area": "Manhattan",
+  "isOnline": "true",
+  "imageUrl": "https://webcams.nyctmc.org/api/cameras/3dc1adcd-7a47-45c3-a667-9d8fae9fdcd0/image",
+  "distance_m": 1143
+}

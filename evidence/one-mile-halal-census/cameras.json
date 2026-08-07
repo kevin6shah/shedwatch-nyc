@@ -1,0 +1,572 @@
+[
+  {
+    "id": "5214cfe8-ccfc-42e9-8e2a-ff2865c1a518",
+    "name": "Houston St @ Broadway",
+    "latitude": 40.725458,
+    "longitude": -73.996756,
+    "area": "Manhattan",
+    "isOnline": "true",
+    "imageUrl": "https://webcams.nyctmc.org/api/cameras/5214cfe8-ccfc-42e9-8e2a-ff2865c1a518/image",
+    "distance_m": 34
+  },
+  {
+    "id": "6fa8acf2-f5bf-4200-afde-1240868ca3e3",
+    "name": "Houston St @ Lafeyette St",
+    "latitude": 40.725063,
+    "longitude": -73.995413,
+    "area": "Manhattan",
+    "isOnline": "true",
+    "imageUrl": "https://webcams.nyctmc.org/api/cameras/6fa8acf2-f5bf-4200-afde-1240868ca3e3/image",
+    "distance_m": 102
+  },
+  {
+    "id": "d138b651-e2ed-4065-a0f9-ef56a65f61d4",
+    "name": "West Broadway @ West Houston St",
+    "latitude": 40.726958,
+    "longitude": -73.999928,
+    "area": "Manhattan",
+    "isOnline": "true",
+    "imageUrl": "https://webcams.nyctmc.org/api/cameras/d138b651-e2ed-4065-a0f9-ef56a65f61d4/image",
+    "distance_m": 342
+  },
+  {
+    "id": "b95471db-03ed-4fc3-9b91-561328029fd4",
+    "name": "Houston St @ Bowery St",
+    "latitude": 40.724113,
+    "longitude": -73.992623,
+    "area": "Manhattan",
+    "isOnline": "true",
+    "imageUrl": "https://webcams.nyctmc.org/api/cameras/b95471db-03ed-4fc3-9b91-561328029fd4/image",
+    "distance_m": 357
+  },
+  {
+    "id": "93dea5a7-a63f-4415-ae12-f32b62540f11",
+    "name": "Kenmare St @ Cleveland pl",
+    "latitude": 40.72147,
+    "longitude": -73.9974,
+    "area": "Manhattan",
+    "isOnline": "true",
+    "imageUrl": "https://webcams.nyctmc.org/api/cameras/93dea5a7-a63f-4415-ae12-f32b62540f11/image",
+    "distance_m": 417
+  },
+  {
+    "id": "85837859-3e5d-4e1b-8740-1c2ea3ed5662",
+    "name": "Broome St and Lafayette St",
+    "latitude": 40.721091,
+    "longitude": -73.998074,
+    "area": "Manhattan",
+    "isOnline": "true",
+    "imageUrl": "https://webcams.nyctmc.org/api/cameras/85837859-3e5d-4e1b-8740-1c2ea3ed5662/image",
+    "distance_m": 470
+  },
+  {
+    "id": "afff9762-e6d4-4b4d-a2e7-60c13763dd16",
+    "name": "Bowery @ Cooper Sq & 4 St",
+    "latitude": 40.727155,
+    "longitude": -73.991628,
+    "area": "Manhattan",
+    "isOnline": "true",
+    "imageUrl": "https://webcams.nyctmc.org/api/cameras/afff9762-e6d4-4b4d-a2e7-60c13763dd16/image",
+    "distance_m": 475
+  },
+  {
+    "id": "444aa32f-8102-4ca6-a7f8-5c9fd8fd5571",
+    "name": "Houston St @ Christies St",
+    "latitude": 40.723591,
+    "longitude": -73.991117,
+    "area": "Manhattan",
+    "isOnline": "true",
+    "imageUrl": "https://webcams.nyctmc.org/api/cameras/444aa32f-8102-4ca6-a7f8-5c9fd8fd5571/image",
+    "distance_m": 496
+  },
+  {
+    "id": "a3058350-1552-459f-8379-2fd06895e70a",
+    "name": "Delancey St @ Bowery St ",
+    "latitude": 40.720317,
+    "longitude": -73.994016,
+    "area": "Manhattan",
+    "isOnline": "true",
+    "imageUrl": "https://webcams.nyctmc.org/api/cameras/a3058350-1552-459f-8379-2fd06895e70a/image",
+    "distance_m": 583
+  },
+  {
+    "id": "63e79f0b-7dea-4c8e-864c-f3315f9cc62c",
+    "name": "Grand St @ Broadway",
+    "latitude": 40.720855,
+    "longitude": -74.000655,
+    "area": "Manhattan",
+    "isOnline": "true",
+    "imageUrl": "https://webcams.nyctmc.org/api/cameras/63e79f0b-7dea-4c8e-864c-f3315f9cc62c/image",
+    "distance_m": 588
+  },
+  {
+    "id": "04589f46-2429-4e26-ad46-12a1198e9a9c",
+    "name": "6 Ave @ West Houston St",
+    "latitude": 40.728348,
+    "longitude": -74.002878,
+    "area": "Manhattan",
+    "isOnline": "true",
+    "imageUrl": "https://webcams.nyctmc.org/api/cameras/04589f46-2429-4e26-ad46-12a1198e9a9c/image",
+    "distance_m": 635
+  },
+  {
+    "id": "b5cf34ce-697e-42a1-b22f-8eb2c1f3e79e",
+    "name": "1 Ave @ E. Houston St",
+    "latitude": 40.723043,
+    "longitude": -73.988592,
+    "area": "Manhattan",
+    "isOnline": "true",
+    "imageUrl": "https://webcams.nyctmc.org/api/cameras/b5cf34ce-697e-42a1-b22f-8eb2c1f3e79e/image",
+    "distance_m": 717
+  },
+  {
+    "id": "98c2de4e-fa0c-41d0-b1ea-6d1df833d792",
+    "name": "Allan St (1 Ave) @ Houston St (B)",
+    "latitude": 40.72289,
+    "longitude": -73.988622,
+    "area": "Manhattan",
+    "isOnline": "true",
+    "imageUrl": "https://webcams.nyctmc.org/api/cameras/98c2de4e-fa0c-41d0-b1ea-6d1df833d792/image",
+    "distance_m": 720
+  },
+  {
+    "id": "3546896d-d4c6-4966-8a43-2fe62e26526f",
+    "name": "E 8 St @ Lafayette St",
+    "latitude": 40.730175,
+    "longitude": -73.991076,
+    "area": "Manhattan",
+    "isOnline": "true",
+    "imageUrl": "https://webcams.nyctmc.org/api/cameras/3546896d-d4c6-4966-8a43-2fe62e26526f/image",
+    "distance_m": 727
+  },
+  {
+    "id": "b6369867-aa5f-4df3-8af3-dcac2eb0dfc8",
+    "name": "Canal St @ Broadway",
+    "latitude": 40.719655,
+    "longitude": -74.001842,
+    "area": "Manhattan",
+    "isOnline": "true",
+    "imageUrl": "https://webcams.nyctmc.org/api/cameras/b6369867-aa5f-4df3-8af3-dcac2eb0dfc8/image",
+    "distance_m": 755
+  },
+  {
+    "id": "c733e881-862d-4874-9d00-9bfdc3b27cbc",
+    "name": "Grand St @ Bowery",
+    "latitude": 40.718427,
+    "longitude": -73.99483,
+    "area": "Manhattan",
+    "isOnline": "true",
+    "imageUrl": "https://webcams.nyctmc.org/api/cameras/c733e881-862d-4874-9d00-9bfdc3b27cbc/image",
+    "distance_m": 765
+  },
+  {
+    "id": "58ca7f66-a60c-4b2d-9cb5-a68e8ac545ac",
+    "name": "Varick st @ Broome st",
+    "latitude": 40.724402,
+    "longitude": -74.006047,
+    "area": "Manhattan",
+    "isOnline": "true",
+    "imageUrl": "https://webcams.nyctmc.org/api/cameras/58ca7f66-a60c-4b2d-9cb5-a68e8ac545ac/image",
+    "distance_m": 799
+  },
+  {
+    "id": "23bcc0dd-d395-45fe-8106-676ba7293208",
+    "name": "Varick St @ Watt St",
+    "latitude": 40.72379,
+    "longitude": -74.006138,
+    "area": "Manhattan",
+    "isOnline": "true",
+    "imageUrl": "https://webcams.nyctmc.org/api/cameras/23bcc0dd-d395-45fe-8106-676ba7293208/image",
+    "distance_m": 817
+  },
+  {
+    "id": "c6d82dbd-1c49-478f-819f-a38c1826b628",
+    "name": "Canal St @ 6 Ave ",
+    "latitude": 40.721872,
+    "longitude": -74.005346,
+    "area": "Manhattan",
+    "isOnline": "true",
+    "imageUrl": "https://webcams.nyctmc.org/api/cameras/c6d82dbd-1c49-478f-819f-a38c1826b628/image",
+    "distance_m": 822
+  },
+  {
+    "id": "db84e6bd-1436-4213-bbfb-f6e0ceab38c7",
+    "name": "West Houston @ Varick St",
+    "latitude": 40.7286,
+    "longitude": -74.005356,
+    "area": "Manhattan",
+    "isOnline": "true",
+    "imageUrl": "https://webcams.nyctmc.org/api/cameras/db84e6bd-1436-4213-bbfb-f6e0ceab38c7/image",
+    "distance_m": 829
+  },
+  {
+    "id": "a249b3ee-bde9-4d6d-9a18-9cd2108d2eb0",
+    "name": "Allen St @ Delancey St (B)",
+    "latitude": 40.719108,
+    "longitude": -73.99043,
+    "area": "Manhattan",
+    "isOnline": "true",
+    "imageUrl": "https://webcams.nyctmc.org/api/cameras/a249b3ee-bde9-4d6d-9a18-9cd2108d2eb0/image",
+    "distance_m": 852
+  },
+  {
+    "id": "96be7098-dda4-42da-bfe2-55bc5c6b94fb",
+    "name": "Baxter St @ Canal Street",
+    "latitude": 40.7175537302479,
+    "longitude": -73.999310720446,
+    "area": "Manhattan",
+    "isOnline": "true",
+    "imageUrl": "https://webcams.nyctmc.org/api/cameras/96be7098-dda4-42da-bfe2-55bc5c6b94fb/image",
+    "distance_m": 877
+  },
+  {
+    "id": "dce301aa-b937-4041-b9fc-960abcd79178",
+    "name": "Varick St @ Laight St",
+    "latitude": 40.721808,
+    "longitude": -74.006436,
+    "area": "Manhattan",
+    "isOnline": "true",
+    "imageUrl": "https://webcams.nyctmc.org/api/cameras/dce301aa-b937-4041-b9fc-960abcd79178/image",
+    "distance_m": 908
+  },
+  {
+    "id": "0ff11926-fcf0-4e3b-8aea-ffc0ea4f2228",
+    "name": "West Houston @ Hudson St",
+    "latitude": 40.728739,
+    "longitude": -74.007137,
+    "area": "Manhattan",
+    "isOnline": "true",
+    "imageUrl": "https://webcams.nyctmc.org/api/cameras/0ff11926-fcf0-4e3b-8aea-ffc0ea4f2228/image",
+    "distance_m": 971
+  },
+  {
+    "id": "48cd1b5b-f361-4683-9d83-492d4789d7ea",
+    "name": "Grand St @ Allen St",
+    "latitude": 40.717382,
+    "longitude": -73.991308,
+    "area": "Manhattan",
+    "isOnline": "true",
+    "imageUrl": "https://webcams.nyctmc.org/api/cameras/48cd1b5b-f361-4683-9d83-492d4789d7ea/image",
+    "distance_m": 975
+  },
+  {
+    "id": "3a3cf44d-6c42-46fb-b774-1441a8582076",
+    "name": "Canal St @ Hudson St",
+    "latitude": 40.723677,
+    "longitude": -74.008095,
+    "area": "Manhattan",
+    "isOnline": "true",
+    "imageUrl": "https://webcams.nyctmc.org/api/cameras/3a3cf44d-6c42-46fb-b774-1441a8582076/image",
+    "distance_m": 981
+  },
+  {
+    "id": "56b99f9c-1f5c-47e2-8c85-d34de045a4ce",
+    "name": "Varick St @ Beach St ",
+    "latitude": 40.720434,
+    "longitude": -74.006699,
+    "area": "Manhattan",
+    "isOnline": "true",
+    "imageUrl": "https://webcams.nyctmc.org/api/cameras/56b99f9c-1f5c-47e2-8c85-d34de045a4ce/image",
+    "distance_m": 999
+  },
+  {
+    "id": "fec41cf4-e167-48ae-9d40-785d8e86078d",
+    "name": "MHB-16 Manhattan Colonade Entr",
+    "latitude": 40.716139,
+    "longitude": -73.996063,
+    "area": "Manhattan",
+    "isOnline": "true",
+    "imageUrl": "https://webcams.nyctmc.org/api/cameras/fec41cf4-e167-48ae-9d40-785d8e86078d/image",
+    "distance_m": 1005
+  },
+  {
+    "id": "1f0cfaad-4c0a-46e8-a5e3-f206d83a875d",
+    "name": "Delancy St @ Essex St",
+    "latitude": 40.718557,
+    "longitude": -73.988199,
+    "area": "Manhattan",
+    "isOnline": "true",
+    "imageUrl": "https://webcams.nyctmc.org/api/cameras/1f0cfaad-4c0a-46e8-a5e3-f206d83a875d/image",
+    "distance_m": 1022
+  },
+  {
+    "id": "24101bcf-29a7-4417-b77d-1f0368dc212d",
+    "name": "Hudson St @ Laight St",
+    "latitude": 40.721932,
+    "longitude": -74.008155,
+    "area": "Manhattan",
+    "isOnline": "true",
+    "imageUrl": "https://webcams.nyctmc.org/api/cameras/24101bcf-29a7-4417-b77d-1f0368dc212d/image",
+    "distance_m": 1037
+  },
+  {
+    "id": "8cc75cbc-e050-4947-aee8-639f63fe4ca7",
+    "name": "Canal Street @ Chrystie Street",
+    "latitude": 40.715821,
+    "longitude": -73.994913,
+    "area": "Manhattan",
+    "isOnline": "true",
+    "imageUrl": "https://webcams.nyctmc.org/api/cameras/8cc75cbc-e050-4947-aee8-639f63fe4ca7/image",
+    "distance_m": 1049
+  },
+  {
+    "id": "8c1ea3b6-0db6-4222-ba50-2545f8f82d71",
+    "name": "Hudson St @ Erickson Pl/Beach",
+    "latitude": 40.720694,
+    "longitude": -74.008455,
+    "area": "Manhattan",
+    "isOnline": "true",
+    "imageUrl": "https://webcams.nyctmc.org/api/cameras/8c1ea3b6-0db6-4222-ba50-2545f8f82d71/image",
+    "distance_m": 1115
+  },
+  {
+    "id": "d2940392-4ee6-433a-ae24-f4f4f15f2566",
+    "name": "MHB-16A Manh East of Colonnade Entr",
+    "latitude": 40.715131,
+    "longitude": -73.995022,
+    "area": "Manhattan",
+    "isOnline": "true",
+    "imageUrl": "https://webcams.nyctmc.org/api/cameras/d2940392-4ee6-433a-ae24-f4f4f15f2566/image",
+    "distance_m": 1124
+  },
+  {
+    "id": "6fc602cf-72c5-40cc-9a42-9a844de7bc1a",
+    "name": "Grand St @ Essex St",
+    "latitude": 40.716723,
+    "longitude": -73.989158,
+    "area": "Manhattan",
+    "isOnline": "true",
+    "imageUrl": "https://webcams.nyctmc.org/api/cameras/6fc602cf-72c5-40cc-9a42-9a844de7bc1a/image",
+    "distance_m": 1130
+  },
+  {
+    "id": "25ad72fe-e74c-49af-b4c0-34c9eac14655",
+    "name": "Canal St @ Greenwich St ( Holland Tunnel )",
+    "latitude": 40.725039,
+    "longitude": -74.01009,
+    "area": "Manhattan",
+    "isOnline": "true",
+    "imageUrl": "https://webcams.nyctmc.org/api/cameras/25ad72fe-e74c-49af-b4c0-34c9eac14655/image",
+    "distance_m": 1135
+  },
+  {
+    "id": "9dbb3101-9918-4b61-946f-a34d7c7c662b",
+    "name": "East Houston St @ Ave B",
+    "latitude": 40.721437,
+    "longitude": -73.983838,
+    "area": "Manhattan",
+    "isOnline": "true",
+    "imageUrl": "https://webcams.nyctmc.org/api/cameras/9dbb3101-9918-4b61-946f-a34d7c7c662b/image",
+    "distance_m": 1154
+  },
+  {
+    "id": "ed12f2da-9f65-44f0-a162-123c412716c6",
+    "name": "Canal Street @ Allen Street",
+    "latitude": 40.7150861999536,
+    "longitude": -73.9925114202795,
+    "area": "Manhattan",
+    "isOnline": "true",
+    "imageUrl": "https://webcams.nyctmc.org/api/cameras/ed12f2da-9f65-44f0-a162-123c412716c6/image",
+    "distance_m": 1174
+  },
+  {
+    "id": "d47d2f63-cdc1-4f28-bc4c-e64ac07e4f1d",
+    "name": "Union Sq @ 14 St",
+    "latitude": 40.73483,
+    "longitude": -73.99087,
+    "area": "Manhattan",
+    "isOnline": "true",
+    "imageUrl": "https://webcams.nyctmc.org/api/cameras/d47d2f63-cdc1-4f28-bc4c-e64ac07e4f1d/image",
+    "distance_m": 1178
+  },
+  {
+    "id": "f9cb9d4c-10ad-42e4-8997-dbc9e12bd55a",
+    "name": "E 14 St @ Irving Pl/Lexington Av",
+    "latitude": 40.733978,
+    "longitude": -73.9888,
+    "area": "Manhattan",
+    "isOnline": "true",
+    "imageUrl": "https://webcams.nyctmc.org/api/cameras/f9cb9d4c-10ad-42e4-8997-dbc9e12bd55a/image",
+    "distance_m": 1180
+  },
+  {
+    "id": "cd229284-a743-4ac4-9430-366f11e68d6c",
+    "name": "Irving Pl @ 14 St",
+    "latitude": 40.733984,
+    "longitude": -73.988693,
+    "area": "Manhattan",
+    "isOnline": "true",
+    "imageUrl": "https://webcams.nyctmc.org/api/cameras/cd229284-a743-4ac4-9430-366f11e68d6c/image",
+    "distance_m": 1186
+  },
+  {
+    "id": "ebec9de9-3f56-477a-a413-2e0a09b2b6ba",
+    "name": "Worth Street @ Lafayette Street",
+    "latitude": 40.715579,
+    "longitude": -74.003036,
+    "area": "Manhattan",
+    "isOnline": "true",
+    "imageUrl": "https://webcams.nyctmc.org/api/cameras/ebec9de9-3f56-477a-a413-2e0a09b2b6ba/image",
+    "distance_m": 1196
+  },
+  {
+    "id": "63bf5db0-582d-4482-ad51-52338c7f9906",
+    "name": "3 Ave @ 14 St",
+    "latitude": 40.733275,
+    "longitude": -73.987279,
+    "area": "Manhattan",
+    "isOnline": "true",
+    "imageUrl": "https://webcams.nyctmc.org/api/cameras/63bf5db0-582d-4482-ad51-52338c7f9906/image",
+    "distance_m": 1197
+  },
+  {
+    "id": "ebac5b6e-bd3a-4046-926b-7446edab9bee",
+    "name": "3 Ave @ E 14 St",
+    "latitude": 40.733316,
+    "longitude": -73.987185,
+    "area": "Manhattan",
+    "isOnline": "true",
+    "imageUrl": "https://webcams.nyctmc.org/api/cameras/ebac5b6e-bd3a-4046-926b-7446edab9bee/image",
+    "distance_m": 1205
+  },
+  {
+    "id": "07b8616e-373e-4ec9-89cc-11cad7d59fcb",
+    "name": "Worth St @ Centre St",
+    "latitude": 40.715157,
+    "longitude": -74.00213,
+    "area": "Manhattan",
+    "isOnline": "true",
+    "imageUrl": "https://webcams.nyctmc.org/api/cameras/07b8616e-373e-4ec9-89cc-11cad7d59fcb/image",
+    "distance_m": 1206
+  },
+  {
+    "id": "7d10cfbb-0465-4958-90fc-ddd5349d6635",
+    "name": "West St @ Canal St",
+    "latitude": 40.725812,
+    "longitude": -74.011063,
+    "area": "Manhattan",
+    "isOnline": "true",
+    "imageUrl": "https://webcams.nyctmc.org/api/cameras/7d10cfbb-0465-4958-90fc-ddd5349d6635/image",
+    "distance_m": 1219
+  },
+  {
+    "id": "a9979a0c-71f2-4f5e-a87c-4d29c1104d5c",
+    "name": "WBB-6 North Rdwy @ Delancey St & Clinton St",
+    "latitude": 40.717805,
+    "longitude": -73.985691,
+    "area": "Manhattan",
+    "isOnline": "true",
+    "imageUrl": "https://webcams.nyctmc.org/api/cameras/a9979a0c-71f2-4f5e-a87c-4d29c1104d5c/image",
+    "distance_m": 1232
+  },
+  {
+    "id": "2334b7bd-a237-4bf5-9224-5241bd4ee29e",
+    "name": "WBB-6 South Rdwy @ Delancy St and Clinton St",
+    "latitude": 40.717622,
+    "longitude": -73.985843,
+    "area": "Manhattan",
+    "isOnline": "true",
+    "imageUrl": "https://webcams.nyctmc.org/api/cameras/2334b7bd-a237-4bf5-9224-5241bd4ee29e/image",
+    "distance_m": 1237
+  },
+  {
+    "id": "67a4769b-dfb2-4a0d-9605-114df107646c",
+    "name": "West St @ West Houston St",
+    "latitude": 40.729104,
+    "longitude": -74.010528,
+    "area": "Manhattan",
+    "isOnline": "true",
+    "imageUrl": "https://webcams.nyctmc.org/api/cameras/67a4769b-dfb2-4a0d-9605-114df107646c/image",
+    "distance_m": 1251
+  },
+  {
+    "id": "02d7db8e-481d-477e-9cdb-a2b6c6ec1ca3",
+    "name": "2 Ave @ E 14 St",
+    "latitude": 40.732373,
+    "longitude": -73.984954,
+    "area": "Manhattan",
+    "isOnline": "true",
+    "imageUrl": "https://webcams.nyctmc.org/api/cameras/02d7db8e-481d-477e-9cdb-a2b6c6ec1ca3/image",
+    "distance_m": 1268
+  },
+  {
+    "id": "1572a83a-0a4f-4a7b-84a0-fec0890a2de3",
+    "name": "C4-WST-03-Med_at_Vestry_St",
+    "latitude": 40.723031,
+    "longitude": -74.01141,
+    "area": "Manhattan",
+    "isOnline": "true",
+    "imageUrl": "https://webcams.nyctmc.org/api/cameras/1572a83a-0a4f-4a7b-84a0-fec0890a2de3/image",
+    "distance_m": 1269
+  },
+  {
+    "id": "b6847d0c-ee18-409e-a3b8-e68f8365047c",
+    "name": "West St @ Clarkson",
+    "latitude": 40.729832,
+    "longitude": -74.010658,
+    "area": "Manhattan",
+    "isOnline": "true",
+    "imageUrl": "https://webcams.nyctmc.org/api/cameras/b6847d0c-ee18-409e-a3b8-e68f8365047c/image",
+    "distance_m": 1292
+  },
+  {
+    "id": "cdfc2dbe-7ce3-4775-ab7a-8440a9828358",
+    "name": "Worth Street @ Bowery",
+    "latitude": 40.713578,
+    "longitude": -73.998542,
+    "area": "Manhattan",
+    "isOnline": "true",
+    "imageUrl": "https://webcams.nyctmc.org/api/cameras/cdfc2dbe-7ce3-4775-ab7a-8440a9828358/image",
+    "distance_m": 1299
+  },
+  {
+    "id": "63930c04-926c-4730-821e-95b486513843",
+    "name": "RT. 9A @ N. Moore St",
+    "latitude": 40.720319,
+    "longitude": -74.012171,
+    "area": "Manhattan",
+    "isOnline": "true",
+    "imageUrl": "https://webcams.nyctmc.org/api/cameras/63930c04-926c-4730-821e-95b486513843/image",
+    "distance_m": 1417
+  },
+  {
+    "id": "2a0021de-869a-4a31-b151-0be7f78d9c05",
+    "name": "MHB-17 Manh LRW @ X OVER",
+    "latitude": 40.712361,
+    "longitude": -73.993504,
+    "area": "Manhattan",
+    "isOnline": "true",
+    "imageUrl": "https://webcams.nyctmc.org/api/cameras/2a0021de-869a-4a31-b151-0be7f78d9c05/image",
+    "distance_m": 1448
+  },
+  {
+    "id": "0952329e-6b6f-4286-b5e3-b682eae94e52",
+    "name": "Broadway @ Chambers St",
+    "latitude": 40.714177,
+    "longitude": -74.006307,
+    "area": "Manhattan",
+    "isOnline": "true",
+    "imageUrl": "https://webcams.nyctmc.org/api/cameras/0952329e-6b6f-4286-b5e3-b682eae94e52/image",
+    "distance_m": 1470
+  },
+  {
+    "id": "e0ac368d-414a-4606-bea5-236e94a2d5b5",
+    "name": "Brooklyn Bridge @ Centre Street",
+    "latitude": 40.712423,
+    "longitude": -74.004937,
+    "area": "Manhattan",
+    "isOnline": "true",
+    "imageUrl": "https://webcams.nyctmc.org/api/cameras/e0ac368d-414a-4606-bea5-236e94a2d5b5/image",
+    "distance_m": 1581
+  },
+  {
+    "id": "7ae8f58a-84e9-4c9f-9e90-daa2dc548f20",
+    "name": "Pearl Street @ St. James Pl",
+    "latitude": 40.711038,
+    "longitude": -74.000466,
+    "area": "Manhattan",
+    "isOnline": "true",
+    "imageUrl": "https://webcams.nyctmc.org/api/cameras/7ae8f58a-84e9-4c9f-9e90-daa2dc548f20/image",
+    "distance_m": 1604
+  }
+]

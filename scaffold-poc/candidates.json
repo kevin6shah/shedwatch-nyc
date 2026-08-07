@@ -1,0 +1,24 @@
+[
+  {
+    "case_id": "223-second-ave",
+    "address": "223 2 AVENUE",
+    "bbl": "1004690030",
+    "bin_ids": ["1006906"],
+    "camera_id": "02d7db8e-481d-477e-9cdb-a2b6c6ec1ca3",
+    "observed_at": "2026-08-07T18:29:25-04:00",
+    "modern_current_permit": false,
+    "latest_known_shed_expiration": "2017-10-12",
+    "disposition": "human_review_required"
+  },
+  {
+    "case_id": "74-78-eighth-ave",
+    "address": "74-78 8 AVENUE / 254-256 WEST 14 STREET",
+    "bbl": "1006180005",
+    "bin_ids": ["1080215", "1080216", "1080217"],
+    "camera_id": "3dc1adcd-7a47-45c3-a667-9d8fae9fdcd0",
+    "observed_at": "2026-08-07T18:29:23-04:00",
+    "modern_current_permit": false,
+    "latest_known_shed_expiration": "2023-04-01",
+    "disposition": "human_review_required"
+  }
+]

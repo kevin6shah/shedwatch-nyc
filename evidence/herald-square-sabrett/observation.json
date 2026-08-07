@@ -1,0 +1,31 @@
+{
+  "observation_id": "dot-8ee72946-2026-08-07T17:43:31-04:00",
+  "source": "nyc_dot_camera",
+  "camera_id": "8ee72946-49e0-4f49-991d-4f52b1206ed7",
+  "camera_name": "Broadway @ 6 Ave / 33 St",
+  "observed_at": "2026-08-07T17:43:31-04:00",
+  "presence": {
+    "class": "food_cart",
+    "status": "present",
+    "confidence": "high",
+    "persistence_frames": 2,
+    "persistence_window_minutes": 4
+  },
+  "resolved_entity": {
+    "display_name": "Sabrett Hot Dog Stand — Herald Square",
+    "identity_level": "brand",
+    "operator_name": null,
+    "latitude": 40.7493,
+    "longitude": -73.988,
+    "distance_from_camera_m": 13.4,
+    "confidence": "high"
+  },
+  "validators": [
+    "geotagged_reference_photo",
+    "visual_brand_match",
+    "multi_frame_persistence",
+    "google_maps_negative_lookup"
+  ],
+  "maps_status": "missing_exact_listing",
+  "database_action": "append_presence_observation"
+}
