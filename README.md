@@ -9,6 +9,8 @@ the permit. A reviewer—not the model—decides whether a case merits follow-up
 
 Built for NYC Vision Hack v.2 and deployed on Google Cloud Run.
 
+**Live demo:** <https://shedwatch-nyc-187000325658.us-east1.run.app>
+
 ## Demo result
 
 The one-mile Union Square pilot matched 38 DOT cameras from a 964-camera daily
