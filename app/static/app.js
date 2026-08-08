@@ -97,12 +97,13 @@ function renderDrawer(item) {
     permit_nearby_unverified: "Compare the boxed frontage with the nearby permit address. Do not approve unless Street View, camera direction, or the posted permit number ties them to the same structure.",
     location_unresolved: "Resolve the boxed structure to a building frontage first. No permit conclusion is valid until its BBL/BIN is known.",
   }[item.status];
+  const actualPasses = item.case_id.startsWith("citywide-") && item.detection.confirmation_reason ? 2 : 1;
   document.getElementById("drawer-content").innerHTML = `
     <div class="drawer-head"><span class="status ${meta.cls}">${escapeHtml(meta.label)}</span><h2>${escapeHtml(item.title)}</h2><p class="lede">${escapeHtml(item.lot.address_aliases.join(" · "))}</p></div>
     ${decision}
     <div class="evidence-image"><img src="${escapeHtml(item.frame.image_path)}" alt="NYC DOT camera evidence">${item.detection.box ? `<div class="bbox" style="${boxStyle(item.detection.box)}"></div>` : ""}</div>
     <div class="detail-grid">
-      <div class="detail"><span>Vision confidence</span><strong>${item.detection.shed_visible ? `${Math.round(item.detection.confidence*100)}% · ${item.detection.verification_passes} pass${item.detection.verification_passes === 1 ? "" : "es"}` : "Not asserted · permit-only control"}</strong></div>
+      <div class="detail"><span>Vision confidence</span><strong>${item.detection.shed_visible ? `${Math.round(item.detection.confidence*100)}% · ${actualPasses} pass${actualPasses === 1 ? "" : "es"}` : "Not asserted · permit-only control"}</strong></div>
       <div class="detail"><span>Location match</span><strong>${Math.round(item.lot.confidence*100)}% · ${item.lot.distance_from_camera_m} m</strong></div>
       <div class="detail"><span>Tax lot</span><strong>BBL ${escapeHtml(item.lot.bbl)}</strong></div>
       <div class="detail"><span>Latest permit</span><strong>${permit ? `${escapeHtml(permit.permit_id)} · ${escapeHtml(permit.expiration_date)}` : "None found"}</strong></div>
@@ -115,7 +116,7 @@ function renderDrawer(item) {
     </div></div>
     <div class="evidence-block permit-audit"><h4>PERMIT AUDIT TRAIL</h4>${registryBadge}<p>${escapeHtml(item.permit_evidence.records_checked)} records evaluated across ${escapeHtml(item.permit_evidence.sources.join(" · "))}.</p><div class="permit-table-wrap"><table class="permit-table"><thead><tr><th>Permit / job</th><th>Source</th><th>Status</th><th>Issued</th><th>Expires</th></tr></thead><tbody>${recordRows}</tbody></table></div><div class="source-links">${sourceLinks}</div></div>
     <div class="evidence-block"><h4>WHY IT WAS FLAGGED</h4><p>${escapeHtml(item.detection.visual_reason)}</p><p>${escapeHtml(item.permit_evidence.explanation)}</p></div>
-    ${item.detection.confirmation_reason ? `<div class="evidence-block"><h4>ADVERSARIAL VISION CHECK · ${Math.round(item.detection.confirmation_confidence*100)}%</h4><p>${escapeHtml(item.detection.confirmation_reason)}</p></div>` : ""}
+    ${item.case_id.startsWith("citywide-") && item.detection.confirmation_reason ? `<div class="evidence-block"><h4>ADVERSARIAL VISION CHECK · ${Math.round(item.detection.confirmation_confidence*100)}%</h4><p>${escapeHtml(item.detection.confirmation_reason)}</p></div>` : ""}
     <div class="evidence-block"><h4>DECISION RULE</h4><p>${escapeHtml(item.permit_evidence.verification_rule)}</p></div>
     <div class="evidence-block"><h4>ENFORCEMENT CONTEXT</h4><p>${escapeHtml(item.ecb_context)}</p></div>
     <div class="evidence-block"><h4>HUMAN REVIEW GATE</h4><ul>${item.reviewer_questions.map(q => `<li>${escapeHtml(q)}</li>`).join("")}</ul></div>

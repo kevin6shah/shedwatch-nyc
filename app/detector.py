@@ -91,8 +91,23 @@ a structure from the opposite side and do not infer one from the location.
                 ),
             )
             if isinstance(response.parsed, GeminiVisionResult):
-                return response.parsed
-            return GeminiVisionResult.model_validate_json(response.text)
+                result = response.parsed
+            else:
+                result = GeminiVisionResult.model_validate_json(response.text)
+            return result.model_copy(
+                update={
+                    "detections": [
+                        detection.model_copy(
+                            update={
+                                "verification_passes": 1,
+                                "confirmation_confidence": None,
+                                "confirmation_reason": None,
+                            }
+                        )
+                        for detection in result.detections
+                    ]
+                }
+            )
 
         return await asyncio.to_thread(run)
 
