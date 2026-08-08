@@ -9,3 +9,5 @@ evidence/one-mile-halal-census
 evidence/herald-square-sabrett
 evidence/union-square-halal
 scaffold-poc/evidence
+app/data/citywide-screen.json
+app/data/citywide-confirmations.json

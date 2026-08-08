@@ -12,6 +12,7 @@ NormalizedCoordinate = Annotated[int, Field(ge=0, le=1000)]
 
 class PermitFinding(StrEnum):
     VALID_PERMIT = "valid_permit"
+    PERMIT_NEARBY_UNVERIFIED = "permit_nearby_unverified"
     NO_CURRENT_PERMIT = "no_current_permit_found"
     LOCATION_UNRESOLVED = "location_unresolved"
 
@@ -43,6 +44,9 @@ class Detection(BaseModel):
     side_of_image: str
     visual_reason: str
     provider: str = "gemini-3.6-flash"
+    verification_passes: int = Field(default=1, ge=1)
+    confirmation_confidence: float | None = Field(default=None, ge=0, le=1)
+    confirmation_reason: str | None = None
 
     @model_validator(mode="after")
     def visible_requires_box(self) -> "Detection":
@@ -53,6 +57,26 @@ class Detection(BaseModel):
 
 class GeminiVisionResult(BaseModel):
     detections: list[Detection]
+
+
+class FrameScreenResult(BaseModel):
+    image_index: int = Field(ge=1)
+    classification: Literal["likely_shed", "possible_shed", "no_shed"]
+    confidence: float = Field(ge=0, le=1)
+    reason: str
+
+
+class BatchScreenResult(BaseModel):
+    results: list[FrameScreenResult]
+
+
+class AdversarialVisionCheck(BaseModel):
+    confirmed: bool
+    confidence: float = Field(ge=0, le=1)
+    visible_overhead_deck: bool
+    visible_support_posts: bool
+    suitable_street_level_view: bool
+    reason: str
 
 
 class CameraFrame(BaseModel):
@@ -68,11 +92,24 @@ class CameraFrame(BaseModel):
 
 class PermitRecord(BaseModel):
     permit_id: str
-    source: Literal["dob_now", "legacy"]
+    source: Literal["dob_now", "legacy", "active_registry"]
     work_type: str
     status: str
     issued_date: date | None = None
     expiration_date: date | None = None
+    job_filing_number: str | None = None
+    address: str | None = None
+    borough: str | None = None
+    bin_id: str | None = None
+    bbl: str | None = None
+    permittee: str | None = None
+    record_url: str | None = None
+
+
+class EvidenceLink(BaseModel):
+    label: str
+    url: str
+    description: str
 
 
 class PermitEvidence(BaseModel):
@@ -83,6 +120,15 @@ class PermitEvidence(BaseModel):
     records_checked: int = Field(ge=0)
     sources: list[str]
     explanation: str
+    records: list[PermitRecord] = Field(default_factory=list)
+    source_links: list[EvidenceLink] = Field(default_factory=list)
+    active_registry_checked: bool = False
+    active_registry_matches: int = Field(default=0, ge=0)
+    nearest_active_permit_m: float | None = Field(default=None, ge=0)
+    verification_rule: str = (
+        "A visible shed is a permit gap only when its frontage is resolved and no "
+        "unexpired, non-signed-off shed permit or daily active-registry entry matches that lot."
+    )
 
 
 class LotMatch(BaseModel):
@@ -121,6 +167,8 @@ class SnapshotMetrics(BaseModel):
     sheds_detected: int = Field(ge=0)
     permit_gaps: int = Field(ge=0)
     controls: int = Field(ge=0)
+    permit_nearby: int = Field(default=0, ge=0)
+    unresolved: int = Field(default=0, ge=0)
 
 
 class ScanSnapshot(BaseModel):
@@ -130,6 +178,7 @@ class ScanSnapshot(BaseModel):
     center_latitude: float
     center_longitude: float
     radius_m: int
+    scope: Literal["one_mile", "citywide"] = "one_mile"
     model_provider: str
     snapshot_mode: str
     metrics: SnapshotMetrics
