@@ -27,6 +27,13 @@ function exactRecordUrl(record) {
   return record.record_url;
 }
 
+function officialExpirationLabel(record) {
+  if (!record?.expiration_date) return "not supplied";
+  if (record.source !== "legacy") return record.expiration_date;
+  const [year, month, day] = record.expiration_date.split("-");
+  return `${month}/${day}/${year}`;
+}
+
 function initializeMap(snapshot) {
   state.map = L.map("map", { zoomControl: false, attributionControl: false }).setView([snapshot.center_latitude, snapshot.center_longitude], snapshot.scope === "citywide" ? 10 : 14);
   L.control.zoom({ position: "bottomright" }).addTo(state.map);
@@ -85,7 +92,10 @@ function renderDrawer(item) {
   const action = item.is_control ? "" : `<div class="review-actions"><textarea id="review-note" placeholder="Optional reviewer note…">${escapeHtml(item.review_note || "")}</textarea><button class="dismiss" data-decision="dismiss">Dismiss candidate</button><button class="approve" data-decision="approve">Approve for follow-up</button></div>`;
   const records = item.permit_evidence.records || [];
   const recordRows = records.length ? records.map(record => { const url = exactRecordUrl(record); return `<tr><td>${url ? `<a href="${escapeHtml(url)}" target="_blank" rel="noopener">${escapeHtml(record.permit_id)} ↗</a>` : escapeHtml(record.permit_id)}</td><td>${escapeHtml(record.source.replaceAll("_", " "))}</td><td>${escapeHtml(record.status)}</td><td>${escapeHtml(record.issued_date || "—")}</td><td>${escapeHtml(record.expiration_date || "—")}</td></tr>`; }).join("") : `<tr><td colspan="5">No matching permit rows returned.</td></tr>`;
-  const sourceLinks = (item.permit_evidence.source_links || []).map(link => `<a class="source-link" href="${escapeHtml(link.url)}" target="_blank" rel="noopener"><strong>${escapeHtml(link.label)} ↗</strong><span>${escapeHtml(link.description)}</span></a>`).join("");
+  const sourceLinks = (item.permit_evidence.source_links || []).map(link => {
+    const label = link.label === "Daily active shed map" ? "Active-registry cross-check (separate)" : link.label;
+    return `<a class="source-link" href="${escapeHtml(link.url)}" target="_blank" rel="noopener"><strong>${escapeHtml(label)} ↗</strong><span>${escapeHtml(link.description)}</span></a>`;
+  }).join("");
   const registryBadge = item.permit_evidence.active_registry_checked ? `<span class="audit-check">✓ DAILY ACTIVE REGISTRY CHECKED · ${item.permit_evidence.active_registry_matches} MATCH${item.permit_evidence.active_registry_matches === 1 ? "" : "ES"}</span>` : `<span class="audit-warn">REGISTRY CHECK UNAVAILABLE</span>`;
   const bin = item.lot.bin_ids?.[0];
   const dobProfile = bin ? `https://a810-bisweb.nyc.gov/bisweb/PropertyProfileOverviewServlet?bin=${encodeURIComponent(bin)}` : null;
@@ -112,8 +122,8 @@ function renderDrawer(item) {
       <a href="${escapeHtml(item.frame.live_image_url)}" target="_blank" rel="noopener">1 · Fresh DOT frame ↗</a>
       <a href="${escapeHtml(streetView)}" target="_blank" rel="noopener">2 · Street View ↗</a>
       ${dobProfile ? `<a href="${escapeHtml(dobProfile)}" target="_blank" rel="noopener">3 · DOB profile · BIN ${escapeHtml(bin)} ↗</a>` : ""}
-      ${officialQuery ? `<a href="${escapeHtml(officialQuery.url)}" target="_blank" rel="noopener">4 · Exact permit row ↗</a>` : ""}
-    </div></div>
+      ${officialQuery ? `<a class="permit-proof-primary" href="${escapeHtml(officialQuery.url)}" target="_blank" rel="noopener">4 · Open permit ${escapeHtml(permit?.permit_id || "record")} — ${item.status === "valid_permit" ? "expires" : "expired"} ${escapeHtml(permit?.expiration_date || "unknown")} ↗</a>` : ""}
+    </div>${permit ? `<p class="raw-proof">In the official JSON, find <code>expiration_date</code>: <strong>${escapeHtml(officialExpirationLabel(permit))}</strong>. Shedwatch displays the same date as ${escapeHtml(permit.expiration_date)}. The active-shed map below is a separate current-registry cross-check.</p>` : ""}</div>
     <div class="evidence-block permit-audit"><h4>PERMIT AUDIT TRAIL</h4>${registryBadge}<p>${escapeHtml(item.permit_evidence.records_checked)} records evaluated across ${escapeHtml(item.permit_evidence.sources.join(" · "))}.</p><div class="permit-table-wrap"><table class="permit-table"><thead><tr><th>Permit / job</th><th>Source</th><th>Status</th><th>Issued</th><th>Expires</th></tr></thead><tbody>${recordRows}</tbody></table></div><div class="source-links">${sourceLinks}</div></div>
     <div class="evidence-block"><h4>WHY IT WAS FLAGGED</h4><p>${escapeHtml(item.detection.visual_reason)}</p><p>${escapeHtml(item.permit_evidence.explanation)}</p></div>
     ${item.case_id.startsWith("citywide-") && item.detection.confirmation_reason ? `<div class="evidence-block"><h4>ADVERSARIAL VISION CHECK · ${Math.round(item.detection.confirmation_confidence*100)}%</h4><p>${escapeHtml(item.detection.confirmation_reason)}</p></div>` : ""}
