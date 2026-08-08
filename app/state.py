@@ -20,6 +20,10 @@ class SnapshotStore:
 
     def get_snapshot(self) -> ScanSnapshot:
         with self._lock:
+            try:
+                self._snapshot = self._load()
+            except (OSError, ValueError):
+                pass
             snapshot = self._snapshot.model_copy(deep=True)
             for case in snapshot.cases:
                 decision = self._decisions.get(case.case_id)

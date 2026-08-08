@@ -9,3 +9,5 @@ __pycache__/
 htmlcov/
 .coverage
 frames-rain/
+app/data/citywide-screen.json
+app/data/citywide-confirmations.json

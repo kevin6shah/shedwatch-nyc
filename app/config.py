@@ -23,6 +23,18 @@ class Settings:
         )
     )
     static_dir: Path = Path(__file__).resolve().parent / "static"
+    evidence_dir: Path = Path(
+        os.getenv(
+            "EVIDENCE_DIR",
+            Path(__file__).resolve().parent / "static" / "frames",
+        )
+    )
+    checkpoint_dir: Path = Path(
+        os.getenv(
+            "CHECKPOINT_DIR",
+            Path(__file__).resolve().parent / "data",
+        )
+    )
     pilot_latitude: float = float(os.getenv("PILOT_LATITUDE", "40.734717"))
     pilot_longitude: float = float(os.getenv("PILOT_LONGITUDE", "-73.990696"))
     pilot_radius_m: int = int(os.getenv("PILOT_RADIUS_M", "1609"))

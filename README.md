@@ -11,48 +11,88 @@ Built for NYC Vision Hack v.2 and deployed on Google Cloud Run.
 
 **Live demo:** <https://shedwatch-nyc-187000325658.us-east1.run.app>
 
-## Demo result
+## Citywide demo result
 
-The one-mile Union Square pilot matched 38 DOT cameras from a 964-camera daily
-snapshot. It surfaces two high-priority permit-gap candidates and one useful
-control:
+The August 7 rain snapshot contains 964 JPEGs. The latest Cloud Run execution
+matched 959 frames to 963 online cameras and published this measured funnel:
+
+- 96 of 957 non-POC frames completed high-recall screening before the Gemini
+  API's spend-rate limit stopped the remaining batches: 61 no, 26 possible,
+  and 9 likely.
+- All 35 likely/possible frames advanced to full single-image detection and an
+  adversarial vision check requiring both a rigid deck and support posts.
+- Six survived and had an active DOB shed permit within 120 metres. They remain
+  blue, not green, until the image frontage is assigned to that permit's lot.
+- The live header and `GET /api/scan-status` expose the exact screened count.
+
+The job is resumable; unprocessed frames are not silently called clear. The
+959 dashboard metric means camera/frame records matched, not 959 completed
+Gemini inspections.
+
+The explicitly resolved Union Square proof cases remain the legal-triage
+acceptance set:
 
 | Location | Camera finding | Latest matching permit | Result |
 | --- | --- | --- | --- |
 | 223 Second Avenue | Gemini detects a shed on the east sidewalk | Expired 2017-10-12 | Human review |
 | 74–78 Eighth Avenue | Gemini detects the south-side corner shed | Signed off; expired 2023-04-01 | Human review |
-| 80 Eighth Avenue | Opposite-side shed in the same intersection | Valid through 2026-12-31 | Permitted control |
+| 80 Eighth Avenue | Permit-only control; no vision box asserted | Work permit valid through 2026-08-20; active-registry job through 2026-12-31 | Permitted control |
 
 “No current permit found” is a screening result, not an adjudication of
 illegality. Lot attribution, newly issued permits, and posted permit numbers
 must be checked by a person.
 
+## Verify a result in 60 seconds
+
+Open a case and use the four buttons at the top of its evidence drawer:
+
+1. Compare the boxed saved image with **Fresh DOT frame**.
+2. Use **Street View** to confirm the structure belongs to the named frontage.
+3. Open **DOB profile** and confirm the BIN shown by Shedwatch.
+4. Open **Exact permit row**. This is the city's machine-readable record for
+   the exact permit/job, not a search-engine result.
+
+The release acceptance rows are:
+
+- 223 Second Avenue: legacy permit `140561675`, `ISSUED`, expired
+  `2017-10-12`; no matching BIN in the daily active-shed registry.
+- 74–78 Eighth Avenue: DOB NOW permit `M00187126-I1-SH`, `Signed-off`, expired
+  `2023-04-01`; no matching BIN in the daily active-shed registry.
+- 80 Eighth Avenue: DOB NOW permit `M00950093-I1-SH`, `Permit Issued`, valid
+  through `2026-08-20`; the daily active registry lists its job through
+  `2026-12-31`. Those dates come from two different official sources and are
+  intentionally shown separately.
+
+Every permit ID in the audit table is also a direct link to its exact official
+JSON row, and the displayed dates are parsed from that linked response.
+
 ## Architecture
 
 ```text
-Daily DOT JPEG snapshot
-        │
-        ├─ camera-name matching + one-mile geofence
-        │
-        ▼
-Gemini Flash structured vision
-  shed boxes, confidence, visual reason
+Private Cloud Storage bucket
+  input/964 original DOT JPEGs
         │
         ▼
-Explicit camera/frontage match for the POC
-  PLUTO BBL + BIN aliases
+Cloud Run Job: shedwatch-citywide-scan
+  camera matching → Gemini screen → Gemini detection → adversarial check
+        │
+        ├─ explicit camera/frontage match for the POC
+        ├─ PLUTO BBL + BIN aliases
+        └─ deterministic DOB NOW + legacy + daily active-registry checks
         │
         ▼
-Deterministic permit validator
-  DOB NOW + legacy permits + ECB context
+Private Cloud Storage output
+  scan-snapshot.json + selected evidence JPEGs + resumable checkpoints
         │
         ▼
-FastAPI snapshot API → map + evidence review queue
-                         approve / dismiss
+Cloud Run service: shedwatch-nyc
+  read-only snapshot API → map + evidence review queue → approve / dismiss
 ```
 
-The deployed app bundles the latest derived snapshot and its 38 pilot frames,
-so the stage demo continues to work if a camera or upstream API is unavailable.
+The production web service does not run vision or create findings. It mounts and
+renders artifacts created by the separate Cloud Run Job. A cloud-generated
+snapshot and its selected evidence frames are also bundled as a stage-demo
+fallback if the mounted artifact is temporarily unavailable.
 
 ## Technology
 
@@ -60,6 +100,7 @@ so the stage demo continues to work if a camera or upstream API is unavailable.
 - Gemini structured image understanding through `google-genai`
 - Leaflet and CARTO/OSM map tiles
 - NYC DOT Traffic Cameras
+- DOB Active Sidewalk Shed Permits daily registry and map
 - NYC PLUTO (`64uk-42ks`)
 - DOB NOW Build Approved Permits (`rbx6-tga4`)
 - DOB Permit Issuance (`ipu4-2q9a`)
@@ -97,11 +138,21 @@ For deterministic development without model calls:
 python -m app.scanner --mode fixture --refresh-permits
 ```
 
+Run the resumable whole-city pipeline with:
+
+```bash
+python -m app.citywide
+```
+
+It checkpoints high-recall screening and adversarial confirmations under
+`app/data/`, then copies only review evidence into the deployable static assets.
+
 ## API
 
 - `GET /healthz` — container-local health check
 - `GET /api/healthz` — externally reachable Cloud Run health check
 - `GET /api/snapshot`
+- `GET /api/scan-status`
 - `GET /api/cases/{case_id}`
 - `POST /api/cases/{case_id}/decision`
 
@@ -125,7 +176,19 @@ rules, the known candidate/control classifications, and review actions.
 
 ## Cloud Run
 
-The production service is built directly from this repository:
+All authoritative processing happens in the `shedwatch-citywide-scan` Cloud Run
+Job. The job mounts the private input/output bucket and uses the Gemini key from
+Secret Manager:
+
+```bash
+gcloud run jobs execute shedwatch-citywide-scan \
+  --project cloudrun-hack26nyc-4331 \
+  --region us-east1 \
+  --wait
+```
+
+The public viewer is built directly from this repository and mounts only the
+job's output:
 
 ```bash
 gcloud run deploy shedwatch-nyc \
@@ -136,12 +199,13 @@ gcloud run deploy shedwatch-nyc \
   --cpu 1 \
   --memory 512Mi \
   --max-instances 2 \
-  --set-env-vars GEMINI_MODEL=gemini-3.6-flash \
-  --set-secrets GEMINI_API_KEY=gemini-api-key:latest
+  --set-env-vars SNAPSHOT_PATH=/mnt/shedwatch/output/scan-snapshot.json,EVIDENCE_DIR=/mnt/shedwatch/output/frames \
+  --add-volume name=shedwatch-data,type=cloud-storage,bucket=cloudrun-hack26nyc-4331-shedwatch \
+  --add-volume-mount volume=shedwatch-data,mount-path=/mnt/shedwatch
 ```
 
-The service does not need the API key to serve its bundled snapshot. The secret
-is only required when running a new Gemini scan.
+The public service does not receive the Gemini key. Its process only validates
+and serves the Cloud Run Job's typed JSON output.
 
 ## Limitations and responsible use
 
@@ -151,12 +215,14 @@ is only required when running a new Gemini scan.
 - The POC uses explicit frontage mappings for the two known cases; automated
   camera-pixel-to-tax-lot attribution is future work.
 - Open Data can lag a newly issued permit.
+- The latest citywide execution hit Gemini's spend-rate limit after 96 frames;
+  the remaining 861 are visibly pending rather than classified.
 - A reviewer must verify the frontage, adjoining BINs, and posted permit before
   any escalation.
 - No complaint, enforcement action, or permit filing is submitted by this app.
 
 ## Daily production path after the hackathon
 
-Move raw frames to Cloud Storage, run the same scanner as a daily Cloud Run Job,
-write the derived snapshot to Cloud Storage or Firestore, and schedule it with
-Cloud Scheduler. The web service and its typed API do not need to change.
+Trigger `shedwatch-citywide-scan` daily with Cloud Scheduler after the latest
+camera capture has landed in `input/`. Store dated snapshots before replacing
+the latest output, and move review decisions from process memory to Firestore.

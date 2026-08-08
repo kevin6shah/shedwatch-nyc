@@ -54,6 +54,7 @@ KNOWN_CASES: list[dict[str, Any]] = [
         "camera_id": "02d7db8e-481d-477e-9cdb-a2b6c6ec1ca3",
         "filename": "2_Ave_@_E_14_St.jpg",
         "facing": "South",
+        "borough": "MANHATTAN",
         "box": {"ymin": 80, "xmin": 0, "ymax": 670, "xmax": 520},
         "side": "left / east side",
         "confidence": 0.91,
@@ -84,6 +85,7 @@ KNOWN_CASES: list[dict[str, Any]] = [
         "camera_id": "3dc1adcd-7a47-45c3-a667-9d8fae9fdcd0",
         "filename": "8_Ave_@_14_St.jpg",
         "facing": "East",
+        "borough": "MANHATTAN",
         "box": {"ymin": 70, "xmin": 500, "ymax": 650, "xmax": 1000},
         "side": "right / south side",
         "confidence": 0.94,
@@ -114,6 +116,7 @@ KNOWN_CASES: list[dict[str, Any]] = [
         "camera_id": "3dc1adcd-7a47-45c3-a667-9d8fae9fdcd0",
         "filename": "8_Ave_@_14_St.jpg",
         "facing": "East",
+        "borough": "MANHATTAN",
         "box": {"ymin": 70, "xmin": 0, "ymax": 610, "xmax": 490},
         "side": "left / north side",
         "confidence": 0.92,
@@ -192,6 +195,13 @@ def choose_detection(result, expected_side: str) -> Detection | None:
     visible = [d for d in result.detections if d.shed_visible and d.box]
     if not visible:
         return None
+    expected = expected_side.lower()
+    if "left" in expected:
+        visible = [d for d in visible if (d.box.xmin + d.box.xmax) / 2 < 600]
+    elif "right" in expected:
+        visible = [d for d in visible if (d.box.xmin + d.box.xmax) / 2 > 400]
+    if not visible:
+        return None
     tokens = {token for token in re.split(r"\W+", expected_side.lower()) if token}
     return max(
         visible,
@@ -206,7 +216,7 @@ async def build_snapshot(
     cameras = await fetch_cameras()
     selected = selected_cameras(cameras)
     files = frame_index(settings.frame_dir)
-    static_frames = settings.static_dir / "frames"
+    static_frames = settings.evidence_dir
     static_frames.mkdir(parents=True, exist_ok=True)
     matched: dict[str, tuple[dict[str, Any], Path]] = {}
     for camera in selected:
@@ -219,21 +229,33 @@ async def build_snapshot(
     if mode == "gemini":
         detector = GeminiDetector()
         semaphore = asyncio.Semaphore(settings.gemini_concurrency)
-        mapped_ids = {case["camera_id"] for case in KNOWN_CASES if not case.get("control")}
-        inference_targets = matched if scan_all else {
-            camera_id: value
-            for camera_id, value in matched.items()
-            if camera_id in mapped_ids
-        }
 
-        async def run(camera_id: str, path: Path) -> None:
+        async def run_known(config: dict[str, Any]) -> None:
+            path = matched.get(
+                config["camera_id"],
+                ({}, settings.frame_dir / config["filename"]),
+            )[1]
             async with semaphore:
                 try:
-                    model_results[camera_id] = await detector.detect(path)
+                    model_results[config["case_id"]] = await detector.detect(path)
                 except Exception as exc:  # keep scan usable when a provider call fails
-                    model_results[camera_id] = exc
+                    model_results[config["case_id"]] = exc
 
-        await asyncio.gather(*(run(cid, item[1]) for cid, item in inference_targets.items()))
+        await asyncio.gather(
+            *(run_known(config) for config in KNOWN_CASES if not config.get("control"))
+        )
+
+        if scan_all:
+            async def run_camera(camera_id: str, path: Path) -> None:
+                async with semaphore:
+                    try:
+                        model_results[f"camera:{camera_id}"] = await detector.detect(path)
+                    except Exception as exc:
+                        model_results[f"camera:{camera_id}"] = exc
+
+            await asyncio.gather(
+                *(run_camera(camera_id, item[1]) for camera_id, item in matched.items())
+            )
 
     observed_at = datetime.fromisoformat("2026-08-07T18:32:00-04:00")
     permit_client = PermitClient()
@@ -252,25 +274,55 @@ async def build_snapshot(
                 settings.frame_dir / config["filename"],
             ),
         )
-        detection = seed_detection(config)
-        if (
-            mode == "gemini"
-            and not config.get("control")
-            and model_results.get(config["camera_id"]) is not None
-            and not isinstance(model_results.get(config["camera_id"]), Exception)
-        ):
-            detected = choose_detection(model_results.get(config["camera_id"]), config["side"])
-            if detected:
-                detection = detected.model_copy(update={"provider": settings.gemini_model})
+        if mode == "gemini" and config.get("control"):
+            detection = Detection(
+                shed_visible=False,
+                box=None,
+                confidence=0,
+                structure_type="permit-only control",
+                side_of_image=config["side"],
+                visual_reason=(
+                    "Permit-only legal control. No vision detection or bounding box is "
+                    "asserted for this frontage in the production snapshot."
+                ),
+                provider="not used — permit record control",
+            )
+        elif mode == "gemini":
+            result = model_results.get(config["case_id"])
+            if result is None or isinstance(result, Exception):
+                raise RuntimeError(
+                    f'Gemini did not return usable output for {config["case_id"]}: {result}'
+                )
+            detected = choose_detection(result, config["side"])
+            if not detected:
+                raise RuntimeError(
+                    f'Gemini did not detect the expected frontage for {config["case_id"]}'
+                )
+            detection = detected.model_copy(update={"provider": settings.gemini_model})
+        else:
+            detection = seed_detection(config)
         evidence = seed_permit_evidence(config, observed_at.date())
         if refresh_permits:
             try:
-                records = await permit_client.records_for_lot(
-                    config["block"], config["lot"], config["bins"]
+                evidence = await permit_client.evidence_for_lot(
+                    config["block"],
+                    config["lot"],
+                    config["bins"],
+                    observed_at.date(),
+                    config["borough"],
                 )
-                evidence = evaluate_permits(records, observed_at.date())
-            except Exception:
-                pass
+            except Exception as exc:
+                if mode == "gemini":
+                    evidence = PermitEvidence(
+                        checked_on=observed_at.date(),
+                        finding=PermitFinding.LOCATION_UNRESOLVED,
+                        records_checked=0,
+                        sources=["NYC permit sources unavailable"],
+                        explanation=(
+                            "The official permit lookup failed during this Cloud Run scan; "
+                            f"no legal status was inferred. Error: {type(exc).__name__}."
+                        ),
+                    )
         camera_lat = float(camera["latitude"])
         camera_lon = float(camera["longitude"])
         lot = LotMatch(
@@ -300,7 +352,7 @@ async def build_snapshot(
                     longitude=camera_lon,
                     facing=config["facing"],
                     observed_at=observed_at,
-                    image_path=f"/static/frames/{image_path.name}",
+                    image_path=f"/evidence/{image_path.name}",
                     live_image_url=camera.get("imageUrl", ""),
                 ),
                 detection=detection,

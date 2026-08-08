@@ -19,7 +19,7 @@
         <span><strong>Shedwatch</strong><small>New York City</small></span>
       </a>
       <div class="top-actions">
-        <span class="live-pill"><i></i> Daily snapshot live</span>
+        <span class="live-pill"><i></i> <span id="live-pill-text">Daily snapshot live</span></span>
         <span class="model-pill" id="model-pill">Gemini Flash</span>
       </div>
     </header>
@@ -34,25 +34,25 @@
         <div class="snapshot-stamp">
           <span>LATEST OBSERVATION</span>
           <strong id="snapshot-time">Loading…</strong>
-          <small>Union Square · 1 mile</small>
+          <small id="scope-label">Loading scope…</small>
         </div>
       </section>
 
       <section class="metrics" id="metrics">
-        <article><span>CAMERAS CHECKED</span><strong>—</strong><small>inside pilot radius</small></article>
+        <article><span>CAMERAS MATCHED</span><strong>—</strong><small id="camera-caption">inside pilot radius</small></article>
         <article><span>SHEDS DETECTED</span><strong>—</strong><small>Gemini visual matches</small></article>
         <article class="metric-alert"><span>PERMIT GAPS</span><strong>—</strong><small>need human review</small></article>
-        <article><span>VALID CONTROL</span><strong>—</strong><small>permit confirmed</small></article>
+        <article><span id="fourth-label">VALID CONTROL</span><strong>—</strong><small id="fourth-caption">permit confirmed</small></article>
       </section>
 
       <section class="workspace">
         <div class="map-panel">
           <div class="panel-heading">
-            <div><span class="kicker">01 / CITY VIEW</span><h2>One-mile pilot</h2></div>
-            <div class="legend"><span><i class="dot red"></i>Review</span><span><i class="dot green"></i>Permitted</span><span><i class="dot amber"></i>Unresolved</span></div>
+            <div><span class="kicker">01 / CITY VIEW</span><h2 id="map-title">One-mile pilot</h2></div>
+            <div class="legend"><span><i class="dot red"></i>Review</span><span><i class="dot blue"></i>Permit nearby</span><span><i class="dot green"></i>Permitted</span><span><i class="dot amber"></i>Unresolved</span></div>
           </div>
           <div id="map"></div>
-          <div class="map-note">DOT frames are matched to lots using camera direction, street side, and explicit POC frontage mappings.</div>
+          <div class="map-note" id="map-note">DOT frames are matched to lots using camera direction, street side, and explicit POC frontage mappings.</div>
         </div>
 
         <aside class="queue-panel">

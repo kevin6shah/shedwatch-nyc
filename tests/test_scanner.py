@@ -1,4 +1,7 @@
-from app.scanner import distance_m, normalize_name
+from types import SimpleNamespace
+
+from app.models import BoundingBox, Detection
+from app.scanner import choose_detection, distance_m, normalize_name
 
 
 def test_camera_filename_normalization():
@@ -14,3 +17,26 @@ def test_known_eighth_avenue_camera_is_inside_union_square_radius():
 def test_far_camera_is_outside_radius():
     distance = distance_m(40.734717, -73.990696, 40.785302, -73.969353)
     assert distance > 1609
+
+
+def test_frontage_selection_uses_model_boxes_not_seeded_fallback():
+    left = Detection(
+        shed_visible=True,
+        box=BoundingBox(ymin=100, xmin=20, ymax=700, xmax=420),
+        confidence=0.8,
+        structure_type="sidewalk shed",
+        side_of_image="left",
+        visual_reason="deck and repeated posts",
+    )
+    right = Detection(
+        shed_visible=True,
+        box=BoundingBox(ymin=100, xmin=600, ymax=700, xmax=980),
+        confidence=0.95,
+        structure_type="sidewalk shed",
+        side_of_image="right",
+        visual_reason="deck and repeated posts",
+    )
+    result = SimpleNamespace(detections=[left, right])
+
+    assert choose_detection(result, "left / north side") is left
+    assert choose_detection(result, "right / south side") is right

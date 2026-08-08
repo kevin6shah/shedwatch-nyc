@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+import json
+
 from fastapi import FastAPI, HTTPException
 from fastapi.responses import FileResponse
 from fastapi.staticfiles import StaticFiles
@@ -15,6 +17,8 @@ app = FastAPI(
     version="0.1.0",
 )
 app.mount("/static", StaticFiles(directory=settings.static_dir), name="static")
+settings.evidence_dir.mkdir(parents=True, exist_ok=True)
+app.mount("/evidence", StaticFiles(directory=settings.evidence_dir), name="evidence")
 store = SnapshotStore(settings.snapshot_path)
 
 
@@ -27,6 +31,41 @@ async def index() -> FileResponse:
 @app.get("/api/healthz")
 async def healthz() -> dict[str, str]:
     return {"status": "ok", "service": "shedwatch-nyc"}
+
+
+@app.get("/api/scan-status")
+async def scan_status() -> dict:
+    screen_path = settings.checkpoint_dir / "citywide-screen.json"
+    confirmation_path = settings.checkpoint_dir / "citywide-confirmations.json"
+    try:
+        screen = json.loads(screen_path.read_text())
+        rows = list(screen.get("results", {}).values())
+    except (OSError, ValueError):
+        screen, rows = {}, []
+    try:
+        confirmations = json.loads(confirmation_path.read_text()).get("results", {})
+    except (OSError, ValueError):
+        confirmations = {}
+    counts = {"no_shed": 0, "possible_shed": 0, "likely_shed": 0}
+    for row in rows:
+        classification = row.get("classification")
+        if classification in counts:
+            counts[classification] += 1
+    latest = store.get_snapshot()
+    if latest.scope == "citywide" and len(rows) >= 957:
+        stage = "complete"
+    elif len(rows) >= 957:
+        stage = "verifying candidates"
+    else:
+        stage = "screening"
+    return {
+        "stage": stage,
+        "screened": len(rows),
+        "total": 957,
+        "confirmations": len(confirmations) if len(rows) >= 957 else 0,
+        "classifications": counts,
+        "updated_at": screen.get("updated_at"),
+    }
 
 
 @app.get("/api/snapshot", response_model=ScanSnapshot)
