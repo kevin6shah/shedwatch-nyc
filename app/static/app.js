@@ -15,6 +15,18 @@ function formatDate(value) {
   return new Intl.DateTimeFormat("en-US", { month: "short", day: "numeric", year: "numeric", hour: "numeric", minute: "2-digit" }).format(new Date(value));
 }
 
+function exactRecordUrl(record) {
+  if (!record) return null;
+  if (record.source === "dob_now" && record.issued_date) {
+    const query = new URLSearchParams({
+      "$where": `work_permit="${record.permit_id}" and issued_date="${record.issued_date}T00:00:00.000"`,
+      "$limit": "10",
+    });
+    return `https://data.cityofnewyork.us/resource/rbx6-tga4.json?${query}`;
+  }
+  return record.record_url;
+}
+
 function initializeMap(snapshot) {
   state.map = L.map("map", { zoomControl: false, attributionControl: false }).setView([snapshot.center_latitude, snapshot.center_longitude], snapshot.scope === "citywide" ? 10 : 14);
   L.control.zoom({ position: "bottomright" }).addTo(state.map);
@@ -72,13 +84,13 @@ function renderDrawer(item) {
   const decision = item.decision !== "pending" ? `<div class="decision-banner">REVIEW DECISION · ${escapeHtml(item.decision.toUpperCase())}${item.review_note ? ` — ${escapeHtml(item.review_note)}` : ""}</div>` : "";
   const action = item.is_control ? "" : `<div class="review-actions"><textarea id="review-note" placeholder="Optional reviewer note…">${escapeHtml(item.review_note || "")}</textarea><button class="dismiss" data-decision="dismiss">Dismiss candidate</button><button class="approve" data-decision="approve">Approve for follow-up</button></div>`;
   const records = item.permit_evidence.records || [];
-  const recordRows = records.length ? records.map(record => `<tr><td>${record.record_url ? `<a href="${escapeHtml(record.record_url)}" target="_blank" rel="noopener">${escapeHtml(record.permit_id)} ↗</a>` : escapeHtml(record.permit_id)}</td><td>${escapeHtml(record.source.replaceAll("_", " "))}</td><td>${escapeHtml(record.status)}</td><td>${escapeHtml(record.issued_date || "—")}</td><td>${escapeHtml(record.expiration_date || "—")}</td></tr>`).join("") : `<tr><td colspan="5">No matching permit rows returned.</td></tr>`;
+  const recordRows = records.length ? records.map(record => { const url = exactRecordUrl(record); return `<tr><td>${url ? `<a href="${escapeHtml(url)}" target="_blank" rel="noopener">${escapeHtml(record.permit_id)} ↗</a>` : escapeHtml(record.permit_id)}</td><td>${escapeHtml(record.source.replaceAll("_", " "))}</td><td>${escapeHtml(record.status)}</td><td>${escapeHtml(record.issued_date || "—")}</td><td>${escapeHtml(record.expiration_date || "—")}</td></tr>`; }).join("") : `<tr><td colspan="5">No matching permit rows returned.</td></tr>`;
   const sourceLinks = (item.permit_evidence.source_links || []).map(link => `<a class="source-link" href="${escapeHtml(link.url)}" target="_blank" rel="noopener"><strong>${escapeHtml(link.label)} ↗</strong><span>${escapeHtml(link.description)}</span></a>`).join("");
   const registryBadge = item.permit_evidence.active_registry_checked ? `<span class="audit-check">✓ DAILY ACTIVE REGISTRY CHECKED · ${item.permit_evidence.active_registry_matches} MATCH${item.permit_evidence.active_registry_matches === 1 ? "" : "ES"}</span>` : `<span class="audit-warn">REGISTRY CHECK UNAVAILABLE</span>`;
   const bin = item.lot.bin_ids?.[0];
   const dobProfile = bin ? `https://a810-bisweb.nyc.gov/bisweb/PropertyProfileOverviewServlet?bin=${encodeURIComponent(bin)}` : null;
   const streetView = `https://www.google.com/maps/@?api=1&map_action=pano&viewpoint=${encodeURIComponent(item.lot.latitude)},${encodeURIComponent(item.lot.longitude)}`;
-  const officialQuery = permit?.record_url ? { url: permit.record_url } : ((item.permit_evidence.source_links || []).find(link => link.label.startsWith("Exact")) || (item.permit_evidence.source_links || [])[0]);
+  const officialQuery = exactRecordUrl(permit) ? { url: exactRecordUrl(permit) } : ((item.permit_evidence.source_links || []).find(link => link.label.startsWith("Exact")) || (item.permit_evidence.source_links || [])[0]);
   const verifyText = {
     no_current_permit_found: "Confirm the boxed shed occupies this BBL, then open the exact permit query and check that no later active SH/SF row exists. Finally look on the fresh frame/site for a posted permit number.",
     valid_permit: `Match the visible shed to permit ${permit?.permit_id || "shown below"}, its address, and expiration date in the official record.`,

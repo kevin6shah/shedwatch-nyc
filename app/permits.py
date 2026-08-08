@@ -300,7 +300,10 @@ async def asyncio_gather_responses(
 
 def _modern_record(row: dict[str, Any]) -> PermitRecord:
     permit_id = row.get("work_permit") or row.get("job_filing_number") or "unknown"
+    issued = row.get("issued_date")
     exact_where = f'work_permit="{permit_id}"'
+    if issued:
+        exact_where += f' and issued_date="{issued}"'
     return PermitRecord(
         permit_id=permit_id,
         source="dob_now",
